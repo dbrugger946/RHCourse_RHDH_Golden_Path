@@ -1,5 +1,5 @@
 # Use an OpenJDK base image for Java
-FROM openjdk-17:1.23
+FROM ubi8/openjdk-17:1.23
 
 # Use ADD to download the JAR directly from GitHub
 ADD https://github.com/${{ values.orgName }}/${{ values.repoName }}/raw/refs/heads/main/backend/target/weather-0.0.1-SNAPSHOT.jar main.jar
