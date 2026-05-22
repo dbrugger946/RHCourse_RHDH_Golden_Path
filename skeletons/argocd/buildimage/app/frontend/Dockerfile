@@ -1,11 +1,13 @@
-FROM node:22
+FROM registry.redhat.io/ubi9/nodejs-22:latest
 WORKDIR /app
-
-# Install curl and unzip (needed to fetch and extract files from GitHub)
-RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+USER root
 
 # Copy the folder containing the React app
 COPY ./react-app-frontend ./
+
+RUN chgrp -R 0 /app && \
+    chmod -R g=u /app
+USER 1001:0
 
 # Install dependencies
 RUN npm install
@@ -19,3 +21,4 @@ RUN npm run build
 # Expose the port and start the app
 EXPOSE 3000
 CMD ["npm", "start"]
+
